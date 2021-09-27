@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000')
+const socket = io('wss://pointing-poker-backend.herokuapp.com')
 
 const popup = document.getElementsByClassName('popup-cont')[0]
 const connectBtn = document.getElementsByClassName('connect')[0]
