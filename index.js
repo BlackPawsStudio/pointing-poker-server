@@ -1,4 +1,4 @@
-const socket = io('http://pointing-poker-backend.herokuapp.com')
+const socket = io('https://pointing-poker-backend.herokuapp.com')
 
 const popup = document.getElementsByClassName('popup-cont')[0]
 const connectBtn = document.getElementsByClassName('connect')[0]
