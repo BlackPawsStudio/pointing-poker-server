@@ -1,7 +1,7 @@
 const port = process.env.PORT || 3000;
 const io = require('socket.io')(port, {
   cors: {
-    origin: "https://blackpawsstudio.github.io/pointing-poker-server/",
+    origin: "https://blackpawsstudio.github.io",
   },
 })
 const users = {}
