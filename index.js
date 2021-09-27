@@ -4,13 +4,13 @@ const socket = io('https://pointing-poker-backend.herokuapp.com')
 let invocation = new XMLHttpRequest();
 let url = 'https://pointing-poker-backend.herokuapp.com';
 
-function callOtherDomain() {
-  if(invocation) {
-    invocation.open('GET', url, true);
-    invocation.onreadystatechange = handler;
-    invocation.send();
-  }
-}
+// function callOtherDomain() {
+//   if(invocation) {
+//     invocation.open('GET', url, true);
+//     invocation.onreadystatechange = handler;
+//     invocation.send();
+//   }
+// }
 const popup = document.getElementsByClassName('popup-cont')[0]
 const connectBtn = document.getElementsByClassName('connect')[0]
 const nameInput = document.getElementsByClassName('name-input')[0]
@@ -46,7 +46,7 @@ kick.addEventListener('click', () => {
 })
 
 socket.on('kick-users-list', users => {
-  if (users > 1) {
+  if (users.length > 1) {
     kickSelect.style.display = 'flex';
     for (let i = 0; i < users.length; i++) {
       if (users[i] != nameOfUser)
