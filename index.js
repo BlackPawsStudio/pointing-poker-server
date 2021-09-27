@@ -1,4 +1,4 @@
-const socket = io('https://pointing-poker-backend.herokuapp.com')
+const socket = io('http://pointing-poker-backend.herokuapp.com')
 
 const popup = document.getElementsByClassName('popup-cont')[0]
 const connectBtn = document.getElementsByClassName('connect')[0]
@@ -51,7 +51,7 @@ socket.on('kick-users-list', users => {
 })
 
 const action = (args) => {
-  console.log(args)
+  alert(args)
 }
 
 const ret = (func) => socket.on('send-all-users', (args)=>func(args))
@@ -97,11 +97,16 @@ socket.on('kick-declined', victim => {
   alert(`${victim} has beeen spared`)
 })
 
-socket.on('this-user-is-typing', () => {
-  typingArea.innerHTML = `Somebody is typing`
+socket.on('this-user-is-typing', username => {
+  console.log(`${username} id typing`)
+  typingArea.innerHTML = `${username} id typing`
   setTimeout(() => 
     typingArea.innerHTML = ``, 3000
   )
+})
+
+socket.on('send-all-users', users => {
+  alert(users);
 })
 
 let isSendable = true;
@@ -109,7 +114,7 @@ let isSendable = true;
 const isTyping = () => {
   console.log(isSendable)
   if (isSendable) {
-    socket.emit('user-is-typing')
+    socket.emit('user-is-typing', nameOfUser)
     isSendable = false
     setTimeout(() => {
       isSendable = true
