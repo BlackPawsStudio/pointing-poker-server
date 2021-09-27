@@ -71,7 +71,7 @@ io.on('connection', socket => {
   })
   socket.on('user-is-typing', () => {
     console.log(`Somebody is typing`)
-    socket.broadcast.emit('this-user-is-typing', username)
+    socket.broadcast.emit('this-user-is-typing')
   })
 })
 
