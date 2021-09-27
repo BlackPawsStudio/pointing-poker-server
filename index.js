@@ -57,7 +57,7 @@ socket.on('kick-users-list', users => {
       kickThis[i].addEventListener('click', () => {
         socket.emit('kick-user', kickThis[i].innerHTML)
         socket.emit('user-opinion', true)
-        kickSelect.innerHTML = '';
+        kickSelect.style.display = 'none';
       })
     }
   }
@@ -111,7 +111,6 @@ socket.on('kick-declined', victim => {
 })
 
 socket.on('this-user-is-typing', () => {
-  console.log(`Somebody is typing`)
   typingArea.innerHTML = `Somebody is typing`
   setTimeout(() => 
     typingArea.innerHTML = ``, 3000
@@ -121,7 +120,6 @@ socket.on('this-user-is-typing', () => {
 let isSendable = true;
 
 const isTyping = () => {
-  console.log(isSendable)
   if (isSendable) {
     socket.emit('user-is-typing', nameOfUser)
     isSendable = false
