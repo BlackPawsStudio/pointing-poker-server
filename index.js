@@ -46,18 +46,19 @@ kick.addEventListener('click', async () => {
 })
 
 socket.on('kick-users-list', users => {
-  kickSelect.style.display = 'flex';
-  console.log(users)
-  for (let i = 0; i < users.length; i++) {
-    if (users[i] != nameOfUser)
-      kickUser.innerHTML += addKickUser(users[i])
-  }
-  const kickThis = document.getElementsByClassName('kick-this')
-  for (let i = 0; i < kickThis.length; i++) {
-    kickThis[i].addEventListener('click', () => {
-      socket.emit('kick-user', kickThis[i].innerHTML)
-      kickUser.innerHTML = '';
-    })
+  if (users > 1) {
+    kickSelect.style.display = 'flex';
+    for (let i = 0; i < users.length; i++) {
+      if (users[i] != nameOfUser)
+        kickUser.innerHTML += addKickUser(users[i])
+    }
+    const kickThis = document.getElementsByClassName('kick-this')
+    for (let i = 0; i < kickThis.length; i++) {
+      kickThis[i].addEventListener('click', () => {
+        socket.emit('kick-user', kickThis[i].innerHTML)
+        kickSelect.innerHTML = '';
+      })
+    }
   }
 })
 
