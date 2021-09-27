@@ -1,0 +1,135 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.send-container{
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20%;
+  width: 100%;
+  background-color: #ccc;
+}
+.message-container{
+  height: 80%;
+}
+.input{
+  width: 70%;
+  height: 20%;
+}
+.send-button{
+  height: 20%;
+}
+.popup-cont{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 50%;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup{
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #000;
+}
+.kpopup{
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #000;
+}
+.connect{
+  margin-top: 10px;
+  width: 100px;
+  height: 20px;
+}
+.connected{  
+  margin: 10px 0 10px;
+  height: 30px;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+}
+.disconnected{
+  margin: 10px 0 10px;
+  height: 30px;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+}
+.message{
+  margin: 10px 0 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  border-radius: 10px;
+}
+.users{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+.kick{
+  position: fixed;
+  top: 40px;
+  right: 20px;
+}
+.popup-kick{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 50%;
+  background-color: #333;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.kick-select{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 50%;
+  background-color: #333;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.typing{
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 200px;
+  height: 20px;
+  background-color: #ccc;
+}

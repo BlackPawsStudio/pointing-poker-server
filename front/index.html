@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Chat</title>
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="htmlRender.js"></script>
+  <script defer src="index.js"></script>
+</head>
+<body>
+  <div class="kick-select">
+    <div class="kpopup">
+
+    </div>
+  </div>
+  <div class="popup-kick">
+    <div class="popup">
+      Would you like to kick
+      <button class="kick-confirm">yes</button>
+      <button class="kick-confirm">no</button>
+    </div>
+  </div>
+  <div class="popup-cont">
+    <div class="popup">
+      Your name here
+      <input class="name-input" autofocus>
+      <button class="connect">Connect</button>
+    </div>
+  </div>
+  <button class="users">Get users</button>
+  <button class="kick">Kick users</button>
+  <label class="typing"></label>
+  <div class="message-container">
+  </div>
+  <div class="send-container">
+    <input type="text" class="input" autocomplete="off" autofocus oninput="isTyping()">
+    <button type="submit" class="send-button">SEND</button>
+  </div>    
+</body>
+</html>
