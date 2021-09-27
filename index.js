@@ -109,9 +109,9 @@ socket.on('kick-declined', victim => {
   alert(`${victim} has beeen spared`)
 })
 
-socket.on('this-user-is-typing', username => {
-  console.log(`${username} id typing`)
-  typingArea.innerHTML = `${username} id typing`
+socket.on('this-user-is-typing', () => {
+  console.log(`Somebody is typing`)
+  typingArea.innerHTML = `Somebody is typing`
   setTimeout(() => 
     typingArea.innerHTML = ``, 3000
   )
