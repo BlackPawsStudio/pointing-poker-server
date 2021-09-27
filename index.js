@@ -41,7 +41,7 @@ users.addEventListener('click', () => {
   socket.emit('get-users-request')
 })
 
-kick.addEventListener('click', async () => {
+kick.addEventListener('click', () => {
   socket.emit('get-kick-request')
 })
 
