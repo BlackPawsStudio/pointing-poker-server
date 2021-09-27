@@ -105,10 +105,6 @@ socket.on('this-user-is-typing', username => {
   )
 })
 
-socket.on('send-all-users', users => {
-  alert(users);
-})
-
 let isSendable = true;
 
 const isTyping = () => {
