@@ -56,6 +56,7 @@ socket.on('kick-users-list', users => {
     for (let i = 0; i < kickThis.length; i++) {
       kickThis[i].addEventListener('click', () => {
         socket.emit('kick-user', kickThis[i].innerHTML)
+        socket.emit('user-opinion', true)
         kickSelect.innerHTML = '';
       })
     }

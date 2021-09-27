@@ -127,7 +127,7 @@
 }
 .typing{
   position: absolute;
-  top: 30px;
+  bottom: 160px;
   left: 30px;
   width: 200px;
   height: 20px;
