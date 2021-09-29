@@ -55,6 +55,7 @@ io.on('connection', socket => {
       console.log(`${users[socket.id]} chosen ${answ}`)
       voices += 1
     }
+    console.log(`all voices ${kickCounter}, voices agrees ${voices}`)
     if (usersArr.length == kickCounter) {
       if (voices >= usersArr.length / 2) {
         socket.broadcast.emit('force-disconnect', victim)
