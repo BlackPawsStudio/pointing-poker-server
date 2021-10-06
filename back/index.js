@@ -38,6 +38,7 @@ io.on('connection', (socket) => {
   
   socket.on('request-players', () => {
     socket.emit('recieve-players', usersArr)
+    console.log(`request all players ${usersArr}`)
   })
 
   socket.on('disconnect', () => {
