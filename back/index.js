@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
   socket.on('create-user', (name) => {
     name.id = idGenerator(0, usersArr)
     users[socket.id] = name
-    usersArr[name.id] = name
+    usersArr.push(name)
     io.sockets.emit('user-connected', name)
     console.log(`${name.name} connected`)
   })
