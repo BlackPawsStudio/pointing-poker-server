@@ -15,13 +15,15 @@ let game = {
   rounds: [],
   currentRound: null
 }
+let issues = []
+let currentIssue = null
 
 const idGenerator = (a, arr) => arr.map(e => e.id).includes(a) ? idGenerator(++a, arr) : a
 
-io.on('connection', socket => {
-  console.log(`connected`)
+io.on('connection', (socket) => {
+  console.log(`connection`)
 
-  socket.on('create-user', name => {
+  socket.on('create-user', (name) => {
     name.id = idGenerator(0, usersArr)
     users[socket.id] = name
     usersArr[name.id] = name
@@ -29,7 +31,7 @@ io.on('connection', socket => {
     console.log(`${users[socket.id]} connected`)
   })
 
-  socket.on('message-send', message => {
+  socket.on('message-send', (message) => {
     io.sockets.emit('recieving-messages', [users[socket.id], message])
     console.log(`${users[socket.id]} messaged ${message}`)
   })
@@ -45,13 +47,13 @@ io.on('connection', socket => {
     delete users[socket.id]
   })
 
-  socket.on('user-want-to-kick-user', name => {
+  socket.on('user-want-to-kick-user', (name) => {
     socket.broadcast.emit('kick-offer', name)
     victim = name
     console.log(`${users[socket.id]} wants to kick ${victim}`)
   })
 
-  socket.on('user-opinion', answ => {
+  socket.on('user-opinion', (answ) => {
     kickCounter += 1
     if (answ) {
       console.log(`${users[socket.id]} chosen ${answ}`)
@@ -79,18 +81,40 @@ io.on('connection', socket => {
   })
 
   socket.on('request-master', () => {
-    socket.emit('recieve-master', usersArr.find(el => { if ( el.role == "master" ) return el }))
+    socket.emit('recieve-master', usersArr.find(el => { if ( el.role == 'Dealer' ) return el }))
   })
 
-  socket.on('set-master', user => {
-    user.role = 'master'
+  socket.on('set-master', (user) => {
+    user.role = 'Dealer'
     users[socket.id] = user
-    usersArr[user.id] = userx
+    usersArr[user.id] = user
+  })
+
+  socket.on('request-all-rounds', () => {
+    socket.emit('recieve-all-rounds', issues)
+  })
+
+  socket.on('set-all-rounds', (rounds) => {
+    issues = rounds
   })
 
   socket.on('game-start', () => {
+    game.rounds = issues;
     game.players = usersArr;
-    game.master = usersArr.find(el => { if ( el.role == "master" ) return el })
+    game.master = usersArr.find(el => { if ( el.role == 'Dealer' ) return el });
     socket.emit('game-started', game)
+    currentIssue = issues[0];
   })
+
+  socket.on('user-vote', (vote) => {
+    currentIssue.votes.push(vote)
+  })
+
+  // socket.on('round-end', () => {
+  //   average = 0
+  //   currentIssue.votes.map((el) => {el.})
+  //   issues.splice(0, 1);
+  // })
+
+
 })
