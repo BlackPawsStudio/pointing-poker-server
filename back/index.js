@@ -23,7 +23,7 @@ const idGenerator = (a, arr) => arr.map(e => e.id).includes(a) ? idGenerator(++a
 io.on('connection', (socket) => {
   console.log(`connection`)
 
-  socket.on('create-user', (name) => {
+  socket.once('create-user', (name) => {
     name.id = idGenerator(0, usersArr)
     users[socket.id] = name
     usersArr.push(name)
@@ -113,10 +113,12 @@ io.on('connection', (socket) => {
 
   socket.on('round-end', () => {
     let average = 0
-    const votes = currentIssue.votes.map((el) => {if (el.vote) {+el.vote + average} } )
-    
-    issues.splice(0, 1);
+    const votes = currentIssue.votes.map((el) => {average = +el.vote + average} )
+    game.rounds[0].average = average
+    issues.splice(0, 1)
+    socket.emit('round-change', issues[0])
   })
 
+  
 
 })
