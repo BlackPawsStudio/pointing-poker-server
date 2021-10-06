@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     users[socket.id] = name
     usersArr[name.id] = name
     io.sockets.emit('user-connected', name)
-    console.log(`${users[socket.id]} connected`)
+    console.log(`${name.name} connected`)
   })
 
   socket.on('message-send', (message) => {
@@ -110,11 +110,12 @@ io.on('connection', (socket) => {
     currentIssue.votes.push(vote)
   })
 
-  // socket.on('round-end', () => {
-  //   average = 0
-  //   currentIssue.votes.map((el) => {el.})
-  //   issues.splice(0, 1);
-  // })
+  socket.on('round-end', () => {
+    let average = 0
+    const votes = currentIssue.votes.map((el) => {if (el.vote) {+el.vote + average} } )
+    
+    issues.splice(0, 1);
+  })
 
 
 })
