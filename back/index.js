@@ -17,13 +17,14 @@ let game = {
 }
 let issues = []
 let currentIssue = null
+let settings = null
 
 const idGenerator = (a, arr) => arr.map(e => e.id).includes(a) ? idGenerator(++a, arr) : a
 
 io.on('connection', (socket) => {
   console.log(`connection`)
 
-  socket.once('create-user', (name) => {
+  socket.on('create-user', (name) => {
     name.id = idGenerator(0, usersArr)
     users[socket.id] = name
     usersArr.push(name)
@@ -96,6 +97,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('set-all-rounds', (rounds) => {
+    rounds.map((el) => { el.id = idGenerator(0, rounds) })
     issues = rounds
   })
 
@@ -113,12 +115,29 @@ io.on('connection', (socket) => {
 
   socket.on('round-end', () => {
     let average = 0
-    const votes = currentIssue.votes.map((el) => {average = +el.vote + average} )
-    game.rounds[0].average = average
+    const votes = currentIssue.votes.map((el) => {
+      average = +el.vote + average
+    })
+    average = average / votes.length
+
+    game.rounds[currentIssue.id].average = average
     issues.splice(0, 1)
-    socket.emit('round-change', issues[0])
+    currentIssue = issues[0]
+    socket.emit('round-change', currentIssue)
   })
 
-  
+  socket.on('request-all-stats', () => {
+    socket.emit('receive-all-stats', game.rounds)
+  })
 
+  socket.on('request-round-stats', (issue) => {
+    const stats = game.rounds.find(el => { if (el.issue == issue) return el})
+    socket.emit('recieve-round-stats', stats)
+  })
+
+  socket.on('update-lobby-settings', settings => settings = settings)
+
+  socket.on('request-lobby-settings', () => {
+    socket.emit('recieve-lobby-settings', settings)
+  })
 })
