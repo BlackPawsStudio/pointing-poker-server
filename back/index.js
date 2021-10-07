@@ -140,4 +140,21 @@ io.on('connection', (socket) => {
   socket.on('request-lobby-settings', () => {
     socket.emit('recieve-lobby-settings', settings)
   })
+
+  socket.on('reset', () => {
+    users = {}
+    usersArr = []
+    kickCounter = 0
+    voices = 0
+    victim = null
+    game = {
+      players: [],
+      master: null,
+      rounds: [],
+      currentRound: null
+    }
+    issues = []
+    currentIssue = null
+    settings = null
+  })
 })
