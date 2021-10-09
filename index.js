@@ -32,20 +32,20 @@ connectBtn.addEventListener('click', () => {
 
 send.addEventListener('click', () => {
   if(messageInput.value !== '')
-    socket.emit('message-request', messageInput.value)
+    socket.emit('chat-message-request', messageInput.value)
   area.innerHTML += message(["you", messageInput.value])
   messageInput.value = ''
 })
 
 users.addEventListener('click', () => {
-  socket.emit('get-users-request')
+  socket.emit('chat-get-users-request')
 })
 
 kick.addEventListener('click', () => {
-  socket.emit('get-kick-request')
+  socket.emit('chat-get-kick-request')
 })
 
-socket.on('kick-users-list', users => {
+socket.on('chat-kick-users-list', users => {
   if (users.length > 1) {
     kickSelect.style.display = 'flex';
     for (let i = 0; i < users.length; i++) {
@@ -55,8 +55,8 @@ socket.on('kick-users-list', users => {
     const kickThis = document.getElementsByClassName('kick-this')
     for (let i = 0; i < kickThis.length; i++) {
       kickThis[i].addEventListener('click', () => {
-        socket.emit('kick-user', kickThis[i].innerHTML)
-        socket.emit('user-opinion', true)
+        socket.emit('chat-kick-user', kickThis[i].innerHTML)
+        socket.emit('chat-user-opinion', true)
         kickSelect.style.display = 'none';
       })
     }
@@ -67,50 +67,50 @@ const action = (args) => {
   alert(args)
 }
 
-const ret = (func) => socket.on('send-all-users', (args)=>func(args))
+const ret = (func) => socket.on('chat-send-all-users', (args)=>func(args))
 
 ret(action)
 
 
-socket.on('user-connected', userName => {
+socket.on('chat-user-connected', userName => {
   area.innerHTML += connectMessage(userName, true)
 })
 
-socket.on('relogin', () => {
+socket.on('chat-relogin', () => {
   alert('Name already taken!')
   popup.style.display = "flex";
 })
 
-socket.on('message-post', data => {
+socket.on('chat-message-post', data => {
   area.innerHTML += message(data)
 })
 
-socket.on('user-disconnected', userName => {
+socket.on('chat-user-disconnected', userName => {
   area.innerHTML += connectMessage(userName, false)
 })
 
-socket.on('kick-offer', name => {
+socket.on('chat-kick-offer', name => {
   if(nameOfUser !== name) {
     kickPopup(name)
   }
   else {
     alert('Somebody wants to kick you!')
-    socket.emit('user-opinion', false)
+    socket.emit('chat-user-opinion', false)
   }
 })
 
-socket.on('force-disconnect', victim => {
+socket.on('chat-force-disconnect', victim => {
   if (victim == nameOfUser) {
     socket.disconnect()
     alert('You have been disconnected')
   }
 })
 
-socket.on('kick-declined', victim => {
+socket.on('chat-kick-declined', victim => {
   alert(`${victim} has beeen spared`)
 })
 
-socket.on('this-user-is-typing', () => {
+socket.on('chat-this-user-is-typing', () => {
   typingArea.innerHTML = `Somebody is typing`
   setTimeout(() => 
     typingArea.innerHTML = ``, 3000
@@ -121,7 +121,7 @@ let isSendable = true;
 
 const isTyping = () => {
   if (isSendable) {
-    socket.emit('user-is-typing', nameOfUser)
+    socket.emit('chat-user-is-typing', nameOfUser)
     isSendable = false
     setTimeout(() => {
       isSendable = true
