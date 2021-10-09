@@ -25,7 +25,7 @@ const typingArea = document.getElementsByClassName('typing')[0]
 let nameOfUser = '';
 
 connectBtn.addEventListener('click', () => {
-  socket.emit('connect-user', nameInput.value)
+  socket.emit('chat-connect-user', nameInput.value)
   nameOfUser = nameInput.value;
   popup.style.display = "none";
 })
