@@ -195,14 +195,14 @@ io.on('connection', (socket) => {
   socket.on('chat-get-kick-request', () => {
     socket.emit('chat-kick-users-list', usersArr)
   })
-  socket.on('disconnect', () => {
+  socket.on('chat-disconnect', () => {
     socket.broadcast.emit('chat-user-disconnected', users[socket.id])
     console.log(`${users[socket.id]} disconnected`)
     usersArr.splice(usersArr.indexOf(users[socket.id]), 1)
     delete users[socket.id]
   })
   socket.on('chat-kick-user', name => {
-    socket.broadcast.emit('kick-offer', name)
+    socket.broadcast.emit('chat-kick-offer', name)
     victim = name
     console.log(`${users[socket.id]} wants to kick ${victim}`)
   })
