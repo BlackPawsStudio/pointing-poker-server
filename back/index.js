@@ -22,6 +22,7 @@ let settings = null
 const idGenerator = (a, arr) => arr.map(e => e.id).includes(a) ? idGenerator(++a, arr) : a
 
 io.on('connection', (socket) => {
+  socket.broadcast.emit('chat-send-all-users', usersArr)
   console.log(`connection`)
 
   socket.on('create-user', (name) => {
@@ -43,6 +44,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
+    socket.broadcast.emit('chat-send-all-users', usersArr)
     socket.broadcast.emit('user-disconnected', users[socket.id])
     console.log(users[socket.id], 'disconnected')
     usersArr.splice(usersArr.indexOf(users[socket.id]), 1)
