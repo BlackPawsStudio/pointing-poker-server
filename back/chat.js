@@ -11,6 +11,7 @@ let voices = 0
 let victim = null
 
 io.on('connection', socket => {
+  socket.broadcast.emit('chat-send-all-users', usersArr)
   console.log(`connected`)
 
   //my server part
@@ -35,6 +36,7 @@ io.on('connection', socket => {
     socket.emit('chat-kick-users-list', usersArr)
   })
   socket.on('disconnect', () => {
+    socket.broadcast.emit('chat-send-all-users', usersArr)
     socket.broadcast.emit('chat-user-disconnected', users[socket.id])
     console.log(`${users[socket.id]} disconnected`)
     usersArr.splice(usersArr.indexOf(users[socket.id]), 1)
