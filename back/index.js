@@ -190,7 +190,7 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('chat-message-request', message => {
-    io.broadcast.emit('chat-message-post', [users[socket.id], message])
+    io.sockets.emit('chat-message-post', [users[socket.id], message])
     console.log(`${users[socket.id]} messaged ${message}`)
   })
   socket.on('chat-get-users-request', () => {
