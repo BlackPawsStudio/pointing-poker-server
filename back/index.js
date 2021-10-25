@@ -22,7 +22,9 @@ let settings = null
 const idGenerator = (a, arr) => arr.map(e => e.id).includes(a) ? idGenerator(++a, arr) : a
 
 io.on('connection', (socket) => {
-  socket.broadcast.emit('chat-send-all-users', usersArr)
+  setTimeout(
+    socket.broadcast.emit('chat-send-all-users', usersArr),
+  5000)
   console.log(`connection`)
 
   socket.on('create-user', (name) => {
@@ -188,7 +190,7 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('chat-message-request', message => {
-    socket.broadcast.emit('chat-message-post', [users[socket.id], message])
+    io.broadcast.emit('chat-message-post', [users[socket.id], message])
     console.log(`${users[socket.id]} messaged ${message}`)
   })
   socket.on('chat-get-users-request', () => {
