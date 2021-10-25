@@ -22,9 +22,9 @@ let settings = null
 const idGenerator = (a, arr) => arr.map(e => e.id).includes(a) ? idGenerator(++a, arr) : a
 
 io.on('connection', (socket) => {
-  setTimeout(() =>
-    socket.broadcast.emit('chat-send-all-users', usersArr),
-  5000)
+  setInterval(() => {
+    socket.broadcast.emit('chat-send-all-users', usersArr)    
+  }, 1000);
   console.log(`connection`)
 
   socket.on('create-user', (name) => {
